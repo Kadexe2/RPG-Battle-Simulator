@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://c13w5khqpjl68"]
+
+[ext_resource type="Script" uid="uid://c3jveavc5ospe" path="res://Scripts/battle_menu.gd" id="1_31gyt"]
+
+[node name="BattleMenu" type="Control" unique_id=544631895]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_31gyt")
+
+[node name="MainMenu" type="VBoxContainer" parent="." unique_id=1747463072]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FightButton" type="Button" parent="MainMenu" unique_id=1107132332]
+layout_mode = 2
+text = "FIGHT"
+
+[node name="PartyButton" type="Button" parent="MainMenu" unique_id=588208051]
+layout_mode = 2
+text = "PARTY"
+
+[node name="BagButton" type="Button" parent="MainMenu" unique_id=1761133434]
+layout_mode = 2
+text = "BAG"
+
+[node name="RunButton" type="Button" parent="MainMenu" unique_id=2135731591]
+layout_mode = 2
+text = "RUN"
+
+[node name="FightMenu" type="VBoxContainer" parent="." unique_id=1153856784]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Move1Button" type="Button" parent="FightMenu" unique_id=86322292]
+layout_mode = 2
+text = "SCRATCH"
+
+[node name="Move2Button" type="Button" parent="FightMenu" unique_id=1560059713]
+layout_mode = 2
+text = "GROWL"
+
+[node name="Move3Button" type="Button" parent="FightMenu" unique_id=1571456516]
+layout_mode = 2
+text = "-"
+
+[node name="Move4Button" type="Button" parent="FightMenu" unique_id=309739249]
+layout_mode = 2
+text = "-"
+
+[node name="BackButton" type="Button" parent="FightMenu" unique_id=1815075407]
+layout_mode = 2
+text = "BACK"
+
+[node name="TargetMenu" type="VBoxContainer" parent="." unique_id=1237514887]
+layout_mode = 0
+offset_right = 79.0
+
+[node name="EnemyHPContainer" type="HBoxContainer" parent="." unique_id=1743507534]
+layout_mode = 0
+offset_left = 87.0
+offset_top = 4.0
+offset_right = 373.0
+offset_bottom = 70.0
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="PartyHPContainer" type="HBoxContainer" parent="." unique_id=1989797560]
+layout_mode = 0
+offset_left = 87.0
+offset_top = 105.0
+offset_right = 374.0
+offset_bottom = 169.0
+theme_override_constants/separation = 50
+alignment = 1
+
+[connection signal="pressed" from="MainMenu/FightButton" to="." method="_on_fight_button_pressed"]
+[connection signal="pressed" from="MainMenu/RunButton" to="." method="_on_run_button_pressed"]
+[connection signal="pressed" from="FightMenu/Move1Button" to="." method="_on_move_1_button_pressed"]
+[connection signal="pressed" from="FightMenu/Move2Button" to="." method="_on_move_2_button_pressed"]
+[connection signal="pressed" from="FightMenu/Move3Button" to="." method="_on_move_3_button_pressed"]
+[connection signal="pressed" from="FightMenu/Move4Button" to="." method="_on_move_4_button_pressed"]
+[connection signal="pressed" from="FightMenu/BackButton" to="." method="_on_back_button_pressed"]
