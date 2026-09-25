@@ -3,12 +3,16 @@ extends Control
 #DECLARE VARIABLES
 
 const BattleUnit = preload("res://Scripts/battle_unit.gd")
-const GameData = preload("res://Scripts/game_data.gd")
+const Pokedex = preload("res://Scripts/pokedex.gd")
+const PartyInfo = preload("res://Scripts/party_info.gd")
+const MoveData = preload("res://Scripts/move_data.gd")
 
 @onready var main_menu = $MainMenu
 @onready var fight_menu = $FightMenu
 
-var game_data = GameData.new()
+var pokedex = Pokedex.new()
+var party_info = PartyInfo.new()
+var move_data = MoveData.new()
 
 var party_units = []
 var enemy_units = []
@@ -38,27 +42,30 @@ func _ready():
 	fight_menu.hide()
 	$TargetMenu.hide()
 
-	for character_name in game_data.party:
-		var character_data = game_data.characters[character_name]
+	for character_name in party_info.party:
+		var character_data = party_info.characters[character_name]
+		var species_data = pokedex.species[character_data["species"]]
 
 		var party_unit = BattleUnit.new()
-		party_unit.max_hp = character_data["max_hp"]
+		party_unit.max_hp = species_data["base_hp"]
 		party_unit.current_hp = party_unit.max_hp
 
 		for i in range(character_data["moves"].size()):
 			var move_name = character_data["moves"][i]
 
 			if move_name != "":
-				var move_script = game_data.moves[move_name]
-				party_unit.move_slots[i] = move_script.new()
+				var move_data_entry = move_data.moves[move_name]
+				party_unit.move_slots[i] = move_data_entry
 
 		party_units.append(party_unit)
 
 	for i in range(2):
+		var species_data = pokedex.species["Caterpie"]
+		
 		var enemy_unit = BattleUnit.new()
 		enemy_unit.name = "Enemy " + str(i + 1)
-		enemy_unit.max_hp = 50
-		enemy_unit.current_hp = 50
+		enemy_unit.max_hp = species_data["base_hp"]
+		enemy_unit.current_hp = enemy_unit.max_hp
 		enemy_units.append(enemy_unit)
 
 	create_hp_displays(enemy_units, $EnemyHPContainer, enemy_hp_labels)
@@ -81,7 +88,15 @@ func use_move(move_index, target_index):
 	var target = enemy_units[target_index]
 	var move = party_units[0].move_slots[move_index]
 
-	move.use(target)
+	if move.has("damage"):
+		target.current_hp = clamp(
+			target.current_hp - move["damage"],
+			0,
+			target.max_hp
+		)
+
+	if move.has("message"):
+		print(move["message"])
 
 	if target.current_hp == 0:
 		faint_enemy(target_index)
