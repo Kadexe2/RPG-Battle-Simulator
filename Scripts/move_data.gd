@@ -2,7 +2,7 @@ extends RefCounted
 
 var moves = {
 	"Scratch": {
-		"damage": 20
+		"power": 40
 	},
 
 	"Growl": {

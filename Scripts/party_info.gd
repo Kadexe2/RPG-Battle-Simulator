@@ -1,8 +1,10 @@
 extends RefCounted
 
+const Charmander = preload("res://Data/Species/Charmander.tres")
+
 var characters = {
 	"Jerry": {
-		"species": "Charmander",
+		"species": Charmander,
 		"moves": [
 			"Scratch",
 			"Growl",

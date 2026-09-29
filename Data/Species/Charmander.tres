@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SpeciesData" format=3 uid="uid://ca47mw3e70oth"]
+
+[ext_resource type="Script" uid="uid://bslao6r3fvv05" path="res://Scripts/species_data.gd" id="1_x174x"]
+
+[resource]
+script = ExtResource("1_x174x")
+base_hp = 39
+base_attack = 52
+base_defense = 43
+base_sp_attack = 60
+base_sp_defense = 50
+base_speed = 65
+metadata/_custom_type_script = "uid://bslao6r3fvv05"
