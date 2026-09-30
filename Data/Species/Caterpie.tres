@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_0nxd4")
+species_name = "Caterpie"
 base_hp = 45
 base_attack = 30
 base_defense = 35

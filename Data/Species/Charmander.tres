@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_x174x")
+species_name = "Charmander"
 base_hp = 39
 base_attack = 52
 base_defense = 43

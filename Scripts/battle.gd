@@ -15,13 +15,14 @@ signal battle_won
 func setup(party, enemy_species):
 	party_units = party
 	create_enemy_units(enemy_species)
+	print_enemy_attack_message()
 
 func create_enemy_units(enemy_species):
 	for i in range(enemy_species.size()):
-		var species_name = enemy_species[i]
-		var species_data = load("res://Data/Species/" + species_name + ".tres")
+		var species_data = enemy_species[i]
 
 		var enemy_unit = BattleUnit.new()
+		enemy_unit.species_name = species_data.species_name
 		enemy_unit.name = "Enemy " + str(i + 1)
 		enemy_unit.max_hp = species_data.base_hp
 		enemy_unit.current_hp = enemy_unit.max_hp
@@ -29,6 +30,51 @@ func create_enemy_units(enemy_species):
 		enemy_unit.defense = species_data.base_defense
 
 		enemy_units.append(enemy_unit)
+	
+	assign_enemy_names()
+
+func assign_enemy_names():
+	var species_counts = {}
+
+	for enemy in enemy_units:
+		if not species_counts.has(enemy.species_name):
+			species_counts[enemy.species_name] = 0
+
+		species_counts[enemy.species_name] += 1
+
+	for species_name in species_counts:
+		if species_counts[species_name] > 1:
+			var number = 1
+
+			for enemy in enemy_units:
+				if enemy.species_name == species_name:
+					enemy.name = species_name + " " + str(number)
+					number += 1
+		else:
+			for enemy in enemy_units:
+				if enemy.species_name == species_name:
+					enemy.name = species_name
+
+func print_enemy_attack_message():
+	var names = []
+
+	for enemy in enemy_units:
+		names.append(enemy.name)
+
+	if names.size() == 1:
+		print(names[0] + " attacked!")
+	elif names.size() == 2:
+		print(names[0] + " and " + names[1] + " attacked!")
+	else:
+		var message = ""
+
+		for i in range(names.size()):
+			if i == names.size() - 1:
+				message += "and " + names[i]
+			else:
+				message += names[i] + ", "
+
+		print(message + " attacked!")
 
 func use_move(attacker: BattleUnit, move, target: BattleUnit):
 	if move == null:

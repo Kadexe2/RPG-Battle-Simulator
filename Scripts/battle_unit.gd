@@ -1,7 +1,9 @@
 extends RefCounted
 
+
 var name = ""
 
+var species_name = ""
 var max_hp = 100
 var current_hp = 100
 var attack: int

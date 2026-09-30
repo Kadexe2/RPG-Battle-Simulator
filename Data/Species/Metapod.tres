@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_x1iba")
+species_name = "Metapod"
 base_hp = 50
 base_attack = 20
 base_defense = 55

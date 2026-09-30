@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_736rj")
+species_name = "Weedle"
 base_hp = 40
 base_attack = 35
 base_defense = 30

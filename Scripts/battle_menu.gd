@@ -105,7 +105,7 @@ func _on_back_button_pressed():
 	main_menu.show()
 	
 func _on_run_button_pressed():
-	get_tree().change_scene_to_file("res://Scenes/overworld.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Overworld.tscn")
 		
 func _on_move_1_button_pressed():
 	show_target_menu(0)

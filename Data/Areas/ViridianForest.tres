@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EncounterTable" format=3 uid="uid://bxrd34dwyk4s1"]
+
+[ext_resource type="Script" uid="uid://cxwe5cljoeunq" path="res://Scripts/encounter_table.gd" id="1_aa2mw"]
+[ext_resource type="Resource" uid="uid://mpyqhubicsa7" path="res://Data/Species/Pikachu.tres" id="2_fimru"]
+[ext_resource type="Resource" uid="uid://dyu1dqw7lubii" path="res://Data/Species/Caterpie.tres" id="3_kl5r7"]
+[ext_resource type="Resource" uid="uid://c3u4tdivx7xam" path="res://Data/Species/Weedle.tres" id="4_g0bss"]
+[ext_resource type="Resource" uid="uid://d4mvflrwc8c6" path="res://Data/Species/Kakuna.tres" id="5_v5d8c"]
+[ext_resource type="Resource" uid="uid://bqfhnyn62y0k" path="res://Data/Species/Metapod.tres" id="6_qemth"]
+
+[resource]
+script = ExtResource("1_aa2mw")
+slot_1 = ExtResource("3_kl5r7")
+slot_2 = ExtResource("3_kl5r7")
+slot_3 = ExtResource("4_g0bss")
+slot_4 = ExtResource("4_g0bss")
+slot_5 = ExtResource("5_v5d8c")
+slot_6 = ExtResource("4_g0bss")
+slot_7 = ExtResource("6_qemth")
+slot_8 = ExtResource("2_fimru")
+slot_9 = ExtResource("6_qemth")
+slot_10 = ExtResource("2_fimru")
+metadata/_custom_type_script = "uid://cxwe5cljoeunq"

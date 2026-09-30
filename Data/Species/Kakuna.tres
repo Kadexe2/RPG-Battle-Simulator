@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_q35u8")
+species_name = "Kakuna"
 base_hp = 45
 base_attack = 25
 base_defense = 50
