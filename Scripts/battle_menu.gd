@@ -7,8 +7,6 @@ const PartyInfo = preload("res://Scripts/party_info.gd")
 const MoveData = preload("res://Scripts/move_data.gd")
 const Battle = preload("res://Scripts/battle.gd")
 
-const Caterpie = preload("res://Data/Species/Caterpie.tres")
-
 @onready var main_menu = $MainMenu
 @onready var fight_menu = $FightMenu
 
@@ -40,6 +38,24 @@ func update_hp_display():
 	for i in range(party_units.size()):
 		party_hp_labels[i].text = str(party_units[i].current_hp) + " / " + str(party_units[i].max_hp)
 
+func update_move_buttons():
+	var move_buttons = [
+		$FightMenu/Move1Button,
+		$FightMenu/Move2Button,
+		$FightMenu/Move3Button,
+		$FightMenu/Move4Button
+	]
+
+	var moves = party_units[0].move_slots
+
+	for i in range(move_buttons.size()):
+		var move = moves[i]
+
+		if move == null:
+			move_buttons[i].text = "-"
+		else:
+			move_buttons[i].text = move["name"]
+
 func _ready():
 	fight_menu.hide()
 	$TargetMenu.hide()
@@ -50,6 +66,7 @@ func _ready():
 		var species_data = character_data["species"]
 
 		var party_unit = BattleUnit.new()
+		party_unit.name = character_name
 		party_unit.max_hp = species_data.base_hp
 		party_unit.current_hp = party_unit.max_hp
 		party_unit.attack = species_data.base_attack
@@ -64,19 +81,14 @@ func _ready():
 
 		party_units.append(party_unit)
 
-	for i in range(2):
-		var enemy_unit = BattleUnit.new()
-		enemy_unit.name = "Enemy " + str(i + 1)
-		enemy_unit.max_hp = Caterpie.base_hp
-		enemy_unit.current_hp = enemy_unit.max_hp
-		enemy_unit.attack = Caterpie.base_attack
-		enemy_unit.defense = Caterpie.base_defense
-		enemy_units.append(enemy_unit)
+	battle.setup(party_units, EncounterInfo.enemy_species)
+
+	enemy_units = battle.enemy_units
 
 	create_hp_displays(enemy_units, $EnemyHPContainer, enemy_hp_labels)
 	create_hp_displays(party_units, $PartyHPContainer, party_hp_labels)
-
-	battle.setup(party_units, enemy_units)
+	
+	update_move_buttons()
 
 	battle.damage_dealt.connect(_on_damage_dealt)
 	battle.enemy_fainted.connect(_on_enemy_fainted)
@@ -111,11 +123,21 @@ func _on_move_4_button_pressed():
 		
 func show_target_menu(move_index):
 	var move = party_units[0].move_slots[move_index]
-	
+
 	if move == null:
 		return
-	
+
 	selected_move_index = move_index
+
+	if move.get("target", "enemy") == "self":
+		fight_menu.hide()
+
+		var attacker = party_units[0]
+		battle.use_move(attacker, move, attacker)
+
+		selected_move_index = -1
+		main_menu.show()
+		return
 
 	fight_menu.hide()
 	$TargetMenu.show()
@@ -165,4 +187,5 @@ func _on_enemy_fainted(index):
 	update_hp_display()
 	
 func _on_battle_won():
+	print("All enemies were defeated!")
 	get_tree().change_scene_to_file("res://Scenes/Overworld.tscn")

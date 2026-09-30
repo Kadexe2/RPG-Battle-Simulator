@@ -4,7 +4,7 @@ const BattleUnit = preload("res://Scripts/battle_unit.gd")
 
 
 func calculate_damage(power: int, attacker: BattleUnit, defender: BattleUnit) -> int:
-	var damage = (10.0 * power * attacker.attack / defender.defense) / 50.0
+	var damage = (10.0 * power * attacker.get_effective_attack() / defender.defense) / 50.0
 	return int(damage)
 
 
@@ -15,4 +15,4 @@ func deal_damage(target: BattleUnit, damage: int):
 		target.max_hp
 	)
 
-	print(target.name + " took " + str(damage) + " damage")
+	print(target.name + " took " + str(damage) + " damage.")

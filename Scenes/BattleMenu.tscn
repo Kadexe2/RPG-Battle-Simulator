@@ -37,11 +37,11 @@ offset_bottom = 40.0
 
 [node name="Move1Button" type="Button" parent="FightMenu" unique_id=86322292]
 layout_mode = 2
-text = "SCRATCH"
+text = "-"
 
 [node name="Move2Button" type="Button" parent="FightMenu" unique_id=1560059713]
 layout_mode = 2
-text = "GROWL"
+text = "-"
 
 [node name="Move3Button" type="Button" parent="FightMenu" unique_id=1571456516]
 layout_mode = 2

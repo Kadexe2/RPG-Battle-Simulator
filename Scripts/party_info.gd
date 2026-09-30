@@ -8,7 +8,7 @@ var characters = {
 		"moves": [
 			"Scratch",
 			"Growl",
-			"",
+			"Howl",
 			""
 		]
 	}
