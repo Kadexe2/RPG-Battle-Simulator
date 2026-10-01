@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Pokemon Battle Simulator"
-config/tags=PackedStringArray("microproject")
+config/tags=PackedStringArray("fullgame")
 run/main_scene="uid://ci3edeci05jkf"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"

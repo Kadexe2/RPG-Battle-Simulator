@@ -7,9 +7,9 @@ var characters = {
 		"species": Charmander,
 		"moves": [
 			"Scratch",
-			"Growl",
+			"Ember",
 			"Howl",
-			""
+			"Fire Punch"
 		]
 	}
 }

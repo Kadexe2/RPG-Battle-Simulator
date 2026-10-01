@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource("1_eqgs6")
-species_name = "Pikachu"
 base_hp = 35
 base_attack = 55
 base_defense = 40
 base_sp_attack = 50
 base_sp_defense = 50
 base_speed = 90
+type_1 = 5
 metadata/_custom_type_script = "uid://bslao6r3fvv05"

@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource("1_x174x")
-species_name = "Charmander"
 base_hp = 39
 base_attack = 52
 base_defense = 43
 base_sp_attack = 60
 base_sp_defense = 50
 base_speed = 65
+type_1 = 2
 metadata/_custom_type_script = "uid://bslao6r3fvv05"

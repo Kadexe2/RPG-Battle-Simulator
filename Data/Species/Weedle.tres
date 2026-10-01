@@ -4,11 +4,12 @@
 
 [resource]
 script = ExtResource("1_736rj")
-species_name = "Weedle"
 base_hp = 40
 base_attack = 35
 base_defense = 30
 base_sp_attack = 20
 base_sp_defense = 20
 base_speed = 50
+type_1 = 13
+type_2 = 14
 metadata/_custom_type_script = "uid://bslao6r3fvv05"

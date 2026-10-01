@@ -1,0 +1,23 @@
+class_name ElementalType
+
+enum Type {
+	NONE,
+	NORMAL,
+	FIRE,
+	WATER,
+	GRASS,
+	ELECTRIC,
+	ROCK,
+	FLYING,
+	FIGHTING,
+	DARK,
+	PSYCHIC,
+	STEEL,
+	GROUND,
+	BUG,
+	POISON,
+	ICE,
+	DRAGON,
+	GHOST,
+	FAIRY
+}

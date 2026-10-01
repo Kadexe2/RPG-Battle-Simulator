@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource("1_x1iba")
-species_name = "Metapod"
 base_hp = 50
 base_attack = 20
 base_defense = 55
 base_sp_attack = 25
 base_sp_defense = 25
 base_speed = 30
+type_1 = 13
 metadata/_custom_type_script = "uid://bslao6r3fvv05"

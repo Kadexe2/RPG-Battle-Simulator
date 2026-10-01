@@ -71,6 +71,8 @@ func _ready():
 		party_unit.current_hp = party_unit.max_hp
 		party_unit.attack = species_data.base_attack
 		party_unit.defense = species_data.base_defense
+		party_unit.sp_attack = species_data.base_sp_attack
+		party_unit.sp_defense = species_data.base_sp_defense
 
 		for i in range(character_data["moves"].size()):
 			var move_name = character_data["moves"][i]

@@ -24,10 +24,14 @@ func create_enemy_units(enemy_species):
 		var enemy_unit = BattleUnit.new()
 		enemy_unit.species_name = species_data.species_name
 		enemy_unit.name = "Enemy " + str(i + 1)
+		enemy_unit.type_1 = species_data.type_1
+		enemy_unit.type_2 = species_data.type_2
 		enemy_unit.max_hp = species_data.base_hp
 		enemy_unit.current_hp = enemy_unit.max_hp
 		enemy_unit.attack = species_data.base_attack
 		enemy_unit.defense = species_data.base_defense
+		enemy_unit.sp_attack = species_data.base_sp_attack
+		enemy_unit.sp_defense = species_data.base_sp_defense
 
 		enemy_units.append(enemy_unit)
 	
@@ -81,14 +85,26 @@ func use_move(attacker: BattleUnit, move, target: BattleUnit):
 		return
 
 	if move.has("power"):
-		var damage_amount = damage.calculate_damage(
-			move["power"],
-			attacker,
+		var multiplier = damage.get_effectiveness_multiplier(
+			move["type"],
 			target
 		)
 
-		damage.deal_damage(target, damage_amount)
-		damage_dealt.emit()
+		if multiplier >= 2.0:
+			print("It's super effective!")
+		elif multiplier <= 0.5:
+			print("It's not very effective...")
+
+	var damage_amount = damage.calculate_damage(
+		move["power"],
+		move["type"],
+		attacker,
+		target,
+		move["category"]
+	)
+
+	damage.deal_damage(target, damage_amount)
+	damage_dealt.emit()
 
 	if move.has("message"):
 		print(move["message"])
