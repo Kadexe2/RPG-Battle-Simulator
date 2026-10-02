@@ -19,15 +19,15 @@ func calculate_damage(
 	move_type: ElementalType.Type,
 	attacker: BattleUnit,
 	defender: BattleUnit,
-	category: String
+	category: int
 ) -> int:
 	var attacking_stat
 	var defending_stat
 
-	if category == "Physical":
+	if category == MoveData.Category.PHYSICAL:
 		attacking_stat = attacker.get_effective_attack()
 		defending_stat = defender.defense
-	elif category == "Special":
+	elif category == MoveData.Category.SPECIAL:
 		attacking_stat = attacker.sp_attack
 		defending_stat = defender.sp_defense
 	

@@ -115,7 +115,10 @@ func use_move(attacker: BattleUnit, move, target: BattleUnit):
 	if move == null:
 		return
 
-	if move["category"] == "Physical" or move["category"] == "Special":
+	if (
+		move["category"] == MoveData.Category.PHYSICAL
+		or move["category"] == MoveData.Category.SPECIAL
+		):
 		var multiplier = damage.get_effectiveness_multiplier(
 			move["type"],
 			target

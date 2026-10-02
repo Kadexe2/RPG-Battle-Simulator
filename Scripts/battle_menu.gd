@@ -108,7 +108,7 @@ func show_target_menu(move_index):
 
 	selected_move_index = move_index
 
-	if move.get("target", "Enemy") == "Self":
+	if move.get("target", MoveData.Target.ENEMY) == MoveData.Target.SELF:
 		fight_menu.hide()
 
 		var attacker = battle.party_units[0]
