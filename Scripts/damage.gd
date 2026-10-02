@@ -25,7 +25,7 @@ func calculate_damage(
 	var defending_stat
 
 	if category == "Physical":
-		attacking_stat = attacker.attack
+		attacking_stat = attacker.get_effective_attack()
 		defending_stat = defender.defense
 	elif category == "Special":
 		attacking_stat = attacker.sp_attack

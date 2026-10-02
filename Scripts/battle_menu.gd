@@ -46,7 +46,7 @@ func update_move_buttons():
 		$FightMenu/Move4Button
 	]
 
-	var moves = party_units[0].move_slots
+	var moves = battle.party_units[0].move_slots
 
 	for i in range(move_buttons.size()):
 		var move = moves[i]
@@ -60,30 +60,7 @@ func _ready():
 	fight_menu.hide()
 	$TargetMenu.hide()
 
-	for character_name in party_info.party:
-		var character_data = party_info.characters[character_name]
-
-		var species_data = character_data["species"]
-
-		var party_unit = BattleUnit.new()
-		party_unit.name = character_name
-		party_unit.max_hp = species_data.base_hp
-		party_unit.current_hp = party_unit.max_hp
-		party_unit.attack = species_data.base_attack
-		party_unit.defense = species_data.base_defense
-		party_unit.sp_attack = species_data.base_sp_attack
-		party_unit.sp_defense = species_data.base_sp_defense
-
-		for i in range(character_data["moves"].size()):
-			var move_name = character_data["moves"][i]
-
-			if move_name != "":
-				var move_data_entry = move_data.moves[move_name]
-				party_unit.move_slots[i] = move_data_entry
-
-		party_units.append(party_unit)
-
-	battle.setup(party_units, EncounterInfo.enemy_species)
+	battle.setup(party_info, EncounterInfo.enemy_species)
 
 	enemy_units = battle.enemy_units
 
@@ -124,17 +101,17 @@ func _on_move_4_button_pressed():
 #TARGETING MENU, CHOOSE A TARGET AFTER MOVE WAS SELECTED
 		
 func show_target_menu(move_index):
-	var move = party_units[0].move_slots[move_index]
+	var move = battle.party_units[0].move_slots[move_index]
 
 	if move == null:
 		return
 
 	selected_move_index = move_index
 
-	if move.get("target", "enemy") == "self":
+	if move.get("target", "Enemy") == "Self":
 		fight_menu.hide()
 
-		var attacker = party_units[0]
+		var attacker = battle.party_units[0]
 		battle.use_move(attacker, move, attacker)
 
 		selected_move_index = -1
@@ -164,7 +141,7 @@ func create_target_buttons():
 func _on_target_button_pressed(target_index):
 	$TargetMenu.hide()
 
-	var attacker = party_units[0]
+	var attacker = battle.party_units[0]
 	var move = attacker.move_slots[selected_move_index]
 	var target = enemy_units[target_index]
 

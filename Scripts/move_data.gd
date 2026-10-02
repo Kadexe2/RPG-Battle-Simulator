@@ -6,6 +6,7 @@ var moves = {
 	"name": "Scratch",
 	"type": ElementalType.Type.NORMAL,
 	"category": "Physical",
+	"target": "Enemy",
 	"power": 40
 },
 
@@ -13,6 +14,7 @@ var moves = {
 	"name": "Growl",
 	"type": ElementalType.Type.NORMAL,
 	"category": "Status",
+	"target": "Enemy",
 	"message": "Growl!"
 },
 
@@ -20,6 +22,7 @@ var moves = {
 	"name": "Howl",
 	"type": ElementalType.Type.NORMAL,
 	"category": "Status",
+	"target": "Self",
 	"effect": "attack_up"
 },
 
@@ -27,6 +30,7 @@ var moves = {
 	"name": "Fire Punch",
 	"type": ElementalType.Type.FIRE,
 	"category": "Physical",
+	"target": "Enemy",
 	"power": 75
 },
 
@@ -34,6 +38,7 @@ var moves = {
 	"name": "Ember",
 	"type": ElementalType.Type.FIRE,
 	"category": "Special",
+	"target": "Enemy",
 	"power": 40
 },
 

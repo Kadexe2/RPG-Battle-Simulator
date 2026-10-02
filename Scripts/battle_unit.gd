@@ -18,7 +18,7 @@ var sp_defense: int
 
 var move_slots = [null, null, null, null]
 
-var attack_stage = 0
+var attack_stage: int = 0
 
 func get_effective_attack() -> int:
 	var multiplier = 1.0 + (attack_stage * 0.5)

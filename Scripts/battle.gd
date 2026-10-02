@@ -2,8 +2,10 @@ extends RefCounted
 
 const BattleUnit = preload("res://Scripts/battle_unit.gd")
 const Damage = preload("res://Scripts/damage.gd")
+const MoveData = preload("res://Scripts/move_data.gd")
 
 var damage = Damage.new()
+var move_data = MoveData.new()
 
 var party_units = []
 var enemy_units = []
@@ -12,10 +14,39 @@ signal damage_dealt
 signal enemy_fainted(index)
 signal battle_won
 
-func setup(party, enemy_species):
-	party_units = party
+func setup(party_info, enemy_species):
+	create_party_units(party_info)
 	create_enemy_units(enemy_species)
 	print_enemy_attack_message()
+
+func create_party_units(party_info):
+
+	for character_name in party_info.party:
+		var character_data = party_info.characters[character_name]
+		var species_data = character_data["species"]
+
+		var party_unit = BattleUnit.new()
+
+		party_unit.name = character_name
+		party_unit.species_name = species_data.species_name
+		party_unit.type_1 = species_data.type_1
+		party_unit.type_2 = species_data.type_2
+
+		party_unit.max_hp = species_data.base_hp
+		party_unit.current_hp = party_unit.max_hp
+
+		party_unit.attack = species_data.base_attack
+		party_unit.defense = species_data.base_defense
+		party_unit.sp_attack = species_data.base_sp_attack
+		party_unit.sp_defense = species_data.base_sp_defense
+		
+		for i in range(character_data["moves"].size()):
+			var move_name = character_data["moves"][i]
+			party_unit.move_slots[i] = move_data.moves[move_name]
+
+		party_units.append(party_unit)
+
+	return party_units
 
 func create_enemy_units(enemy_species):
 	for i in range(enemy_species.size()):
@@ -84,7 +115,7 @@ func use_move(attacker: BattleUnit, move, target: BattleUnit):
 	if move == null:
 		return
 
-	if move.has("power"):
+	if move["category"] == "Physical" or move["category"] == "Special":
 		var multiplier = damage.get_effectiveness_multiplier(
 			move["type"],
 			target
@@ -95,22 +126,22 @@ func use_move(attacker: BattleUnit, move, target: BattleUnit):
 		elif multiplier <= 0.5:
 			print("It's not very effective...")
 
-	var damage_amount = damage.calculate_damage(
-		move["power"],
-		move["type"],
-		attacker,
-		target,
-		move["category"]
-	)
+		var damage_amount = damage.calculate_damage(
+			move["power"],
+			move["type"],
+			attacker,
+			target,
+			move["category"]
+		)
 
-	damage.deal_damage(target, damage_amount)
-	damage_dealt.emit()
+		damage.deal_damage(target, damage_amount)
+		damage_dealt.emit()
 
 	if move.has("message"):
 		print(move["message"])
 
 	if move.has("effect"):
-		apply_move_effect(move, attacker)
+		apply_move_effect(move, target)
 
 	if target != null and target.current_hp == 0:
 		var target_index = enemy_units.find(target)
