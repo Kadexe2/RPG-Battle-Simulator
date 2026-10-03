@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://d0dnseumght0"]
+
+[ext_resource type="Script" uid="uid://cj3850coaas5y" path="res://Scripts/move_data.gd" id="1_oyco2"]
+
+[resource]
+script = ExtResource("1_oyco2")
+move_name = "Fire Punch"
+description = "The target is punched with a fiery fist. This may also leave the target with a burn."
+type = 2
+power_points = 15
+power = 75
+physical_contact = true
+metadata/_custom_type_script = "uid://cj3850coaas5y"

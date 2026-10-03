@@ -4,7 +4,6 @@ extends Control
 
 const BattleUnit = preload("res://Scripts/battle_unit.gd")
 const PartyInfo = preload("res://Scripts/party_info.gd")
-const MoveData = preload("res://Scripts/move_data.gd")
 const Battle = preload("res://Scripts/battle.gd")
 
 @onready var main_menu = $MainMenu
@@ -54,7 +53,7 @@ func update_move_buttons():
 		if move == null:
 			move_buttons[i].text = "-"
 		else:
-			move_buttons[i].text = move["name"]
+			move_buttons[i].text = move.move_name
 
 func _ready():
 	fight_menu.hide()
@@ -108,20 +107,30 @@ func show_target_menu(move_index):
 
 	selected_move_index = move_index
 
-	if move.get("target", MoveData.Target.ENEMY) == MoveData.Target.SELF:
-		fight_menu.hide()
+	var attacker = battle.party_units[0]
 
-		var attacker = battle.party_units[0]
-		battle.use_move(attacker, move, attacker)
+	match move.target:
+		MoveData.Target.SELF:
+			fight_menu.hide()
 
-		selected_move_index = -1
-		main_menu.show()
-		return
+			battle.use_move(attacker, move, attacker)
 
-	fight_menu.hide()
-	$TargetMenu.show()
+			selected_move_index = -1
+			main_menu.show()
 
-	create_target_buttons()
+		MoveData.Target.ENEMY:
+			fight_menu.hide()
+			$TargetMenu.show()
+
+			create_target_buttons()
+
+		MoveData.Target.ALL_ENEMIES:
+			fight_menu.hide()
+
+			battle.use_move_on_all_enemies(attacker, move)
+
+			selected_move_index = -1
+			main_menu.show()
 	
 func create_target_buttons():
 	for child in $TargetMenu.get_children():

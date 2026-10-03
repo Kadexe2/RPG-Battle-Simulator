@@ -2,10 +2,8 @@ extends RefCounted
 
 const BattleUnit = preload("res://Scripts/battle_unit.gd")
 const Damage = preload("res://Scripts/damage.gd")
-const MoveData = preload("res://Scripts/move_data.gd")
 
 var damage = Damage.new()
-var move_data = MoveData.new()
 
 var party_units = []
 var enemy_units = []
@@ -41,8 +39,7 @@ func create_party_units(party_info):
 		party_unit.sp_defense = species_data.base_sp_defense
 		
 		for i in range(character_data["moves"].size()):
-			var move_name = character_data["moves"][i]
-			party_unit.move_slots[i] = move_data.moves[move_name]
+			party_unit.move_slots[i] = character_data["moves"][i]
 
 		party_units.append(party_unit)
 
@@ -111,58 +108,82 @@ func print_enemy_attack_message():
 
 		print(message + " attacked!")
 
-func use_move(attacker: BattleUnit, move, target: BattleUnit):
-	if move == null:
-		return
+func use_move(attacker: BattleUnit, move: MoveData, target: BattleUnit):
+	print(attacker.name + " used " + move.move_name + "!")
 
-	if (
-		move["category"] == MoveData.Category.PHYSICAL
-		or move["category"] == MoveData.Category.SPECIAL
-		):
-		var multiplier = damage.get_effectiveness_multiplier(
-			move["type"],
-			target
-		)
-
-		if multiplier >= 2.0:
-			print("It's super effective!")
-		elif multiplier <= 0.5:
-			print("It's not very effective...")
-
-		var damage_amount = damage.calculate_damage(
-			move["power"],
-			move["type"],
-			attacker,
-			target,
-			move["category"]
-		)
-
-		damage.deal_damage(target, damage_amount)
-		damage_dealt.emit()
-
-	if move.has("message"):
-		print(move["message"])
-
-	if move.has("effect"):
-		apply_move_effect(move, target)
+	apply_move_to_target(attacker, move, target)
 
 	if target != null and target.current_hp == 0:
 		var target_index = enemy_units.find(target)
-		faint_enemy(target_index)
-		
-func apply_move_effect(move, target: BattleUnit):
-	if not move.has("effect"):
-		return
 
-	match move["effect"]:
-		"attack_up":
+		if target_index != -1:
+			faint_enemy(target_index)
+
+func apply_move_to_target(
+	attacker: BattleUnit,
+	move: MoveData,
+	target: BattleUnit
+):
+	match move.category:
+		MoveData.Category.PHYSICAL, MoveData.Category.SPECIAL:
+			var multiplier = damage.get_effectiveness_multiplier(
+				move.type,
+				target
+			)
+
+			if multiplier >= 2.0:
+				print("It's super effective!")
+			elif multiplier <= 0.5:
+				print("It's not very effective...")
+
+			var damage_amount = damage.calculate_damage(
+				move,
+				attacker,
+				target
+			)
+
+			damage.deal_damage(target, damage_amount)
+			damage_dealt.emit()
+
+		MoveData.Category.STATUS:
+			apply_move_effect(move, target)
+
+func use_move_on_all_enemies(attacker: BattleUnit, move: MoveData):
+	print(attacker.name + " used " + move.move_name + "!")
+
+	for enemy in enemy_units:
+		apply_move_to_target(attacker, move, enemy)
+		
+func apply_move_effect(move: MoveData, target: BattleUnit):
+	match move.effect:
+		MoveData.Effect.ATTACK_UP:
 			target.attack_stage = clamp(
-				target.attack_stage + 1,
-				0,
+				target.attack_stage + move.stat_boost_stages,
+				-6,
 				6
 			)
 
 			print(target.name + "'s Attack rose!")
+
+		MoveData.Effect.ATTACK_DOWN:
+			target.attack_stage = clamp(
+				target.attack_stage - move.stat_boost_stages,
+				-6,
+				6
+			)
+
+			print(target.name + "'s Attack fell!")
+			
+		MoveData.Effect.DEFENSE_DOWN:
+			target.defense_stage = clamp(
+				target.defense_stage - move.stat_boost_stages,
+				-6,
+				6
+			)
+
+			print(target.name + "'s Defense fell!")
+
+
 
 func faint_enemy(index):
 	var enemy = enemy_units[index]

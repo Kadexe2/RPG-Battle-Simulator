@@ -14,7 +14,7 @@ class_name EncounterTable
 
 func generate_encounter() -> Array[Resource]:
 	var encounter: Array[Resource] = []
-	var enemy_count = randi_range(1, 5)
+	var enemy_count = randi_range(2, 5)
 
 	for i in range(enemy_count):
 		encounter.append(get_random_species())

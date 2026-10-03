@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://ba0d8kos4fnmb"]
+
+[ext_resource type="Script" uid="uid://cj3850coaas5y" path="res://Scripts/move_data.gd" id="1_yhnua"]
+
+[resource]
+script = ExtResource("1_yhnua")
+move_name = "Ember"
+description = "The target is attacked with small flames. This may also leave the target with a burn."
+type = 2
+category = 1
+power_points = 25
+power = 40
+metadata/_custom_type_script = "uid://cj3850coaas5y"

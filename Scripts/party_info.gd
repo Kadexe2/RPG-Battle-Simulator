@@ -6,11 +6,11 @@ var characters = {
 	"Jerry": {
 		"species": Charmander,
 		"moves": [
-			"Scratch",
-			"Ember",
-			"Howl",
-			"Fire Punch"
-		]
+			preload("res://Data/Moves/Scratch.tres"),
+			preload("res://Data/Moves/Leer.tres"),
+			preload("res://Data/Moves/Howl.tres"),
+			preload("res://Data/Moves/FirePunch.tres"),
+			]
 	}
 }
 

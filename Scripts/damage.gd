@@ -15,31 +15,32 @@ func get_effectiveness_multiplier(
 	)
 
 func calculate_damage(
-	power: int,
-	move_type: ElementalType.Type,
+	move: MoveData,
 	attacker: BattleUnit,
-	defender: BattleUnit,
-	category: int
+	defender: BattleUnit
 ) -> int:
 	var attacking_stat
 	var defending_stat
-
-	if category == MoveData.Category.PHYSICAL:
-		attacking_stat = attacker.get_effective_attack()
-		defending_stat = defender.defense
-	elif category == MoveData.Category.SPECIAL:
-		attacking_stat = attacker.sp_attack
-		defending_stat = defender.sp_defense
 	
+	if move.category == MoveData.Category.PHYSICAL:
+		attacking_stat = attacker.get_effective_attack()
+		defending_stat = defender.get_effective_defense()
+	elif move.category == MoveData.Category.SPECIAL:
+		attacking_stat = attacker.get_effective_sp_attack()
+		defending_stat = defender.get_effective_sp_defense()
+		
 	print("Attacking stat: ", attacking_stat)
 	print("Defending stat: ", defending_stat)
 	
-	var damage = (10.0 * power * attacking_stat / defending_stat) / 50.0
-
-	var multiplier = get_effectiveness_multiplier(move_type, defender)
-
+	var damage = (10.0 * move.power * attacking_stat / defending_stat) / 50.0
+	
+	var multiplier = get_effectiveness_multiplier(
+		move.type,
+		defender
+	)
+	
 	damage *= multiplier
-
+	
 	return int(damage)
 
 
