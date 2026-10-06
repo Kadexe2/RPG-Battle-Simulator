@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://cyr3xfy3dfwtl"]
+
+[ext_resource type="Script" uid="uid://dpsjow25weery" path="res://Scenes/party_menu.gd" id="1_w11cd"]
+
+[node name="PartyMenu" type="Control" unique_id=1272838893]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_w11cd")
+
+[node name="PartyList" type="VBoxContainer" parent="." unique_id=1489614742]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 71.0
+offset_right = 138.0
+offset_bottom = 116.0
+offset_transform_enabled = true
+
+[node name="PartyMenuButtons" type="VBoxContainer" parent="." unique_id=132088457]
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 66.0
+
+[node name="EditCharacterButton" type="Button" parent="PartyMenuButtons" unique_id=1708818487]
+layout_mode = 2
+text = "Edit Character"
+
+[node name="BackButton" type="Button" parent="PartyMenuButtons" unique_id=273475741]
+layout_mode = 2
+text = "Back"
+
+[node name="CharacterEditor" type="VBoxContainer" parent="." unique_id=685655212]
+layout_mode = 0
+offset_right = 69.0
+offset_bottom = 175.0
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 120)
+offset_transform_visual_only = false
+
+[node name="NicknameEdit" type="LineEdit" parent="CharacterEditor" unique_id=936828985]
+layout_mode = 2
+
+[node name="SpeciesOptionButton" type="OptionButton" parent="CharacterEditor" unique_id=411222850]
+layout_mode = 2
+
+[node name="Move1OptionButton" type="OptionButton" parent="CharacterEditor" unique_id=948137888]
+layout_mode = 2
+
+[node name="Move2OptionButton" type="OptionButton" parent="CharacterEditor" unique_id=952915012]
+layout_mode = 2
+
+[node name="Move3OptionButton" type="OptionButton" parent="CharacterEditor" unique_id=1849221147]
+layout_mode = 2
+
+[node name="Move4OptionButton" type="OptionButton" parent="CharacterEditor" unique_id=529445799]
+layout_mode = 2
+
+[node name="ApplyButton" type="Button" parent="CharacterEditor" unique_id=1721930057]
+layout_mode = 2
+text = "Apply"
+
+[node name="CancelButton" type="Button" parent="CharacterEditor" unique_id=1572410930]
+layout_mode = 2
+text = "Cancel"
+
+[connection signal="pressed" from="PartyMenuButtons/EditCharacterButton" to="." method="_on_create_button_pressed"]
+[connection signal="pressed" from="PartyMenuButtons/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="CharacterEditor/ApplyButton" to="." method="_on_apply_button_pressed"]
+[connection signal="pressed" from="CharacterEditor/CancelButton" to="." method="_on_cancel_button_pressed"]

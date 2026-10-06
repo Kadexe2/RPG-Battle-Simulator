@@ -3,13 +3,11 @@ extends Control
 #DECLARE VARIABLES
 
 const BattleUnit = preload("res://Scripts/battle_unit.gd")
-const PartyInfo = preload("res://Scripts/party_info.gd")
 const Battle = preload("res://Scripts/battle.gd")
 
-@onready var main_menu = $MainMenu
+@onready var main_menu = $MainBattleMenu
 @onready var fight_menu = $FightMenu
 
-var party_info = PartyInfo.new()
 var move_data = MoveData.new()
 var battle = Battle.new()
 
@@ -59,7 +57,7 @@ func _ready():
 	fight_menu.hide()
 	$TargetMenu.hide()
 
-	battle.setup(party_info, EncounterInfo.enemy_species)
+	battle.setup(PartyInfo, EncounterInfo.enemy_species)
 
 	enemy_units = battle.enemy_units
 

@@ -7,18 +7,104 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_te3kf")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=66266716]
+[node name="OverworldMainMenu" type="VBoxContainer" parent="." unique_id=66266716]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="StartBattleButton" type="Button" parent="VBoxContainer" unique_id=335754170]
+[node name="StartBattleButton" type="Button" parent="OverworldMainMenu" unique_id=335754170]
 layout_mode = 2
 text = "Start Battle"
 
-[node name="QuitGameButton" type="Button" parent="VBoxContainer" unique_id=299676240]
+[node name="PartyButton" type="Button" parent="OverworldMainMenu" unique_id=1280227804]
+layout_mode = 2
+text = "Party"
+
+[node name="SaveButton" type="Button" parent="OverworldMainMenu" unique_id=349978845]
+layout_mode = 2
+text = "Save Game"
+
+[node name="LoadButton" type="Button" parent="OverworldMainMenu" unique_id=1709101495]
+layout_mode = 2
+text = "Load Game"
+
+[node name="QuitGameButton" type="Button" parent="OverworldMainMenu" unique_id=299676240]
 layout_mode = 2
 text = "Quit Game"
 
-[connection signal="pressed" from="VBoxContainer/StartBattleButton" to="." method="_on_start_battle_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]
+[node name="SaveMenu" type="VBoxContainer" parent="." unique_id=911296347]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SaveSlot1Button" type="Button" parent="SaveMenu" unique_id=1175193760]
+layout_mode = 2
+text = "Save Slot 1"
+
+[node name="SaveSlot2Button" type="Button" parent="SaveMenu" unique_id=1122238093]
+layout_mode = 2
+text = "Save Slot 2"
+
+[node name="SaveSlot3Button" type="Button" parent="SaveMenu" unique_id=454869532]
+layout_mode = 2
+text = "Sace Slot 3"
+
+[node name="CancelSaveButton" type="Button" parent="SaveMenu" unique_id=898219750]
+layout_mode = 2
+text = "Cancel"
+
+[node name="LoadMenu" type="VBoxContainer" parent="." unique_id=1362544942]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LoadSlot1Button" type="Button" parent="LoadMenu" unique_id=1442767402]
+layout_mode = 2
+text = "Save Slot 1"
+
+[node name="LoadSlot2Button" type="Button" parent="LoadMenu" unique_id=1813125264]
+layout_mode = 2
+text = "Save Slot 2"
+
+[node name="LoadSlot3Button" type="Button" parent="LoadMenu" unique_id=818134666]
+layout_mode = 2
+text = "Save Slot 3"
+
+[node name="CancelLoadButton" type="Button" parent="LoadMenu" unique_id=1065899432]
+layout_mode = 2
+text = "Cancel"
+
+[node name="OverwriteYesNo" type="VBoxContainer" parent="." unique_id=1710539498]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="OverwriteLabel" type="Label" parent="OverwriteYesNo" unique_id=1716156723]
+layout_mode = 2
+
+[node name="YesButton" type="Button" parent="OverwriteYesNo" unique_id=493745630]
+layout_mode = 2
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="OverwriteYesNo" unique_id=1531532326]
+layout_mode = 2
+text = "No"
+
+[connection signal="pressed" from="OverworldMainMenu/StartBattleButton" to="." method="_on_start_battle_button_pressed"]
+[connection signal="pressed" from="OverworldMainMenu/PartyButton" to="." method="_on_party_button_pressed"]
+[connection signal="pressed" from="OverworldMainMenu/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="OverworldMainMenu/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="OverworldMainMenu/QuitGameButton" to="." method="_on_quit_game_button_pressed"]
+[connection signal="pressed" from="SaveMenu/SaveSlot1Button" to="." method="_on_save_slot_1_button_pressed"]
+[connection signal="pressed" from="SaveMenu/SaveSlot2Button" to="." method="_on_save_slot_2_button_pressed"]
+[connection signal="pressed" from="SaveMenu/SaveSlot3Button" to="." method="_on_save_slot_3_button_pressed"]
+[connection signal="pressed" from="SaveMenu/CancelSaveButton" to="." method="_on_cancel_save_button_pressed"]
+[connection signal="pressed" from="LoadMenu/LoadSlot1Button" to="." method="_on_load_slot_1_button_pressed"]
+[connection signal="pressed" from="LoadMenu/LoadSlot2Button" to="." method="_on_load_slot_2_button_pressed"]
+[connection signal="pressed" from="LoadMenu/LoadSlot3Button" to="." method="_on_load_slot_3_button_pressed"]
+[connection signal="pressed" from="LoadMenu/CancelLoadButton" to="." method="_on_cancel_load_button_pressed"]
+[connection signal="pressed" from="OverwriteYesNo/YesButton" to="." method="_on_yes_button_pressed"]
+[connection signal="pressed" from="OverwriteYesNo/NoButton" to="." method="_on_no_button_pressed"]

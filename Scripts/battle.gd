@@ -19,13 +19,13 @@ func setup(party_info, enemy_species):
 
 func create_party_units(party_info):
 
-	for character_name in party_info.party:
-		var character_data = party_info.characters[character_name]
+	for character_id in party_info.party:
+		var character_data = party_info.characters[character_id]
 		var species_data = character_data["species"]
 
 		var party_unit = BattleUnit.new()
 
-		party_unit.name = character_name
+		party_unit.name = character_data["nickname"]
 		party_unit.species_name = species_data.species_name
 		party_unit.type_1 = species_data.type_1
 		party_unit.type_2 = species_data.type_2

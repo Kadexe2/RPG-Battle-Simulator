@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 EncounterInfo="*uid://dr1viehdro16v"
+PartyInfo="*uid://d1yghonrjvhcw"
 
 [display]
 

@@ -9,24 +9,24 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_31gyt")
 
-[node name="MainMenu" type="VBoxContainer" parent="." unique_id=1747463072]
+[node name="MainBattleMenu" type="VBoxContainer" parent="." unique_id=1747463072]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="FightButton" type="Button" parent="MainMenu" unique_id=1107132332]
+[node name="FightButton" type="Button" parent="MainBattleMenu" unique_id=1107132332]
 layout_mode = 2
 text = "FIGHT"
 
-[node name="PartyButton" type="Button" parent="MainMenu" unique_id=588208051]
+[node name="PartyButton" type="Button" parent="MainBattleMenu" unique_id=588208051]
 layout_mode = 2
 text = "PARTY"
 
-[node name="BagButton" type="Button" parent="MainMenu" unique_id=1761133434]
+[node name="BagButton" type="Button" parent="MainBattleMenu" unique_id=1761133434]
 layout_mode = 2
 text = "BAG"
 
-[node name="RunButton" type="Button" parent="MainMenu" unique_id=2135731591]
+[node name="RunButton" type="Button" parent="MainBattleMenu" unique_id=2135731591]
 layout_mode = 2
 text = "RUN"
 
@@ -77,8 +77,8 @@ offset_bottom = 169.0
 theme_override_constants/separation = 50
 alignment = 1
 
-[connection signal="pressed" from="MainMenu/FightButton" to="." method="_on_fight_button_pressed"]
-[connection signal="pressed" from="MainMenu/RunButton" to="." method="_on_run_button_pressed"]
+[connection signal="pressed" from="MainBattleMenu/FightButton" to="." method="_on_fight_button_pressed"]
+[connection signal="pressed" from="MainBattleMenu/RunButton" to="." method="_on_run_button_pressed"]
 [connection signal="pressed" from="FightMenu/Move1Button" to="." method="_on_move_1_button_pressed"]
 [connection signal="pressed" from="FightMenu/Move2Button" to="." method="_on_move_2_button_pressed"]
 [connection signal="pressed" from="FightMenu/Move3Button" to="." method="_on_move_3_button_pressed"]
