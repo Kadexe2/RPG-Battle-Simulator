@@ -2,8 +2,8 @@ extends Control
 
 #DECLARE VARIABLES
 
-const BattleUnit = preload("res://Scripts/battle_unit.gd")
-const Battle = preload("res://Scripts/battle.gd")
+const BattleUnit = preload("res://Scripts/BattleScripts/battle_unit.gd")
+const Battle = preload("res://Scripts/BattleScripts/battle.gd")
 
 @onready var main_menu = $MainBattleMenu
 @onready var fight_menu = $FightMenu
@@ -42,16 +42,18 @@ func update_move_buttons():
 		$FightMenu/Move3Button,
 		$FightMenu/Move4Button
 	]
-
+	
 	var moves = battle.party_units[0].move_slots
 
 	for i in range(move_buttons.size()):
 		var move = moves[i]
-
+		
 		if move == null:
 			move_buttons[i].text = "-"
 		else:
 			move_buttons[i].text = move.move_name
+			move_buttons[i].tooltip_text = get_move_tooltip(move)
+	
 
 func _ready():
 	fight_menu.hide()
@@ -70,6 +72,23 @@ func _ready():
 	battle.enemy_fainted.connect(_on_enemy_fainted)
 	battle.battle_won.connect(_on_battle_won)
 
+func get_move_tooltip(move_tooltip: MoveData) -> String:
+	var text = move_tooltip.move_name + "\n\n"
+
+	text += "Type: " + ElementalType.Type.keys()[move_tooltip.type] + "\n"
+	text += "Category: " + MoveData.Category.keys()[move_tooltip.category] + "\n"
+	
+	if move_tooltip.category != MoveData.Category.STATUS:
+		text += "Power: " + str(move_tooltip.power) + "\n"
+	
+	text += "Accuracy: " + str(move_tooltip.accuracy) + "\n"
+	text += "PP: " + str(move_tooltip.power_points) + "\n"
+
+	if move_tooltip.description != "":
+		text += "\n" + move_tooltip.description
+
+	return text
+
 #FIGHT MENU, CHOOSE YOUR MOVE
 
 func _on_fight_button_pressed():
@@ -82,6 +101,7 @@ func _on_back_button_pressed():
 	
 func _on_run_button_pressed():
 	get_tree().change_scene_to_file("res://Scenes/Overworld.tscn")
+	print("You got away safely.")
 		
 func _on_move_1_button_pressed():
 	show_target_menu(0)

@@ -1,6 +1,6 @@
 extends RefCounted
 
-const BattleUnit = preload("res://Scripts/battle_unit.gd")
+const BattleUnit = preload("res://Scripts/BattleScripts/battle_unit.gd")
 
 var type_effectiveness = TypeEffectiveness.new()
 

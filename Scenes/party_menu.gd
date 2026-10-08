@@ -1,13 +1,6 @@
 extends Control
 
-const SPECIES = [
-	preload("res://Data/Species/Charmander.tres"),
-	preload("res://Data/Species/Caterpie.tres"),
-	preload("res://Data/Species/Kakuna.tres"),
-	preload("res://Data/Species/Metapod.tres"),
-	preload("res://Data/Species/Pikachu.tres"),
-	preload("res://Data/Species/Weedle.tres")
-]
+const GAME_DATA = preload("res://Data/GameData.tres")
 
 var editing_character_id = 10001
 
@@ -15,15 +8,31 @@ func _ready() -> void:
 	$CharacterEditor.hide()
 
 	populate_species_dropdown()
+	populate_move_dropdowns()
 	update_party_list()
 
 func populate_species_dropdown() -> void:
 	$CharacterEditor/SpeciesOptionButton.clear()
 
-	for species_data in SPECIES:
+	for species_data in GAME_DATA.species:
 		$CharacterEditor/SpeciesOptionButton.add_item(
 			species_data.species_name
 		)
+
+func populate_move_dropdowns() -> void:
+	var dropdowns = [
+		$CharacterEditor/Move1OptionButton,
+		$CharacterEditor/Move2OptionButton,
+		$CharacterEditor/Move3OptionButton,
+		$CharacterEditor/Move4OptionButton
+	]
+
+	for dropdown in dropdowns:
+		dropdown.clear()
+		dropdown.add_item("[No move]")
+
+		for move_data in GAME_DATA.moves:
+			dropdown.add_item(move_data.move_name)
 
 func _on_create_button_pressed() -> void:
 	var character_data = PartyInfo.characters[editing_character_id]
@@ -36,6 +45,27 @@ func _on_create_button_pressed() -> void:
 		if $CharacterEditor/SpeciesOptionButton.get_item_text(i) == species_data.species_name:
 			$CharacterEditor/SpeciesOptionButton.select(i)
 			break
+			
+	var moves = character_data["moves"]
+
+	var move_dropdowns = [
+		$CharacterEditor/Move1OptionButton,
+		$CharacterEditor/Move2OptionButton,
+		$CharacterEditor/Move3OptionButton,
+		$CharacterEditor/Move4OptionButton
+	]
+
+	for slot in range(4):
+		var current_move = moves[slot]
+		
+		if current_move == null:
+			move_dropdowns[slot].select(0)
+			continue
+		
+		for i in range(move_dropdowns[slot].item_count):
+			if move_dropdowns[slot].get_item_text(i) == current_move.move_name:
+				move_dropdowns[slot].select(i)
+				break
 
 	$CharacterEditor.show()
 
@@ -45,10 +75,26 @@ func _on_apply_button_pressed() -> void:
 	character_data["nickname"] = $CharacterEditor/NicknameEdit.text
 
 	var species_index = $CharacterEditor/SpeciesOptionButton.selected
-	character_data["species"] = SPECIES[species_index]
+	character_data["species"] = GAME_DATA.species[species_index]
+
+	var move_dropdowns = [
+		$CharacterEditor/Move1OptionButton,
+		$CharacterEditor/Move2OptionButton,
+		$CharacterEditor/Move3OptionButton,
+		$CharacterEditor/Move4OptionButton
+	]
+
+	for slot in range(4):
+		var move_index = move_dropdowns[slot].selected
+
+		if move_index == 0:
+			character_data["moves"][slot] = null
+		else:
+			character_data["moves"][slot] = GAME_DATA.moves[move_index - 1]
+
+	print("Saved changes to ", character_data["nickname"], "!")
 
 	update_party_list()
-
 	$CharacterEditor.hide()
 
 func _on_cancel_button_pressed() -> void:

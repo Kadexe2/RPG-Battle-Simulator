@@ -1,7 +1,7 @@
 extends RefCounted
 
-const BattleUnit = preload("res://Scripts/battle_unit.gd")
-const Damage = preload("res://Scripts/damage.gd")
+const BattleUnit = preload("res://Scripts/BattleScripts/battle_unit.gd")
+const Damage = preload("res://Scripts/BattleScripts/damage.gd")
 
 var damage = Damage.new()
 
@@ -173,6 +173,15 @@ func apply_move_effect(move: MoveData, target: BattleUnit):
 			)
 
 			print(target.name + "'s Attack fell!")
+		
+		MoveData.Effect.DEFENSE_UP:
+			target.defense_stage = clamp(
+				target.defense_stage + move.stat_boost_stages,
+				-6,
+				6
+			)
+
+			print(target.name + "'s Defense rose!")
 			
 		MoveData.Effect.DEFENSE_DOWN:
 			target.defense_stage = clamp(
@@ -183,7 +192,23 @@ func apply_move_effect(move: MoveData, target: BattleUnit):
 
 			print(target.name + "'s Defense fell!")
 
+		MoveData.Effect.SPEED_UP:
+			target.speed_stage = clamp(
+				target.speed_stage + move.stat_boost_stages,
+				-6,
+				6
+			)
 
+			print(target.name + "'s Speed rose!")
+			
+		MoveData.Effect.SPEED_DOWN:
+			target.speed_stage = clamp(
+				target.speed_stage - move.stat_boost_stages,
+				-6,
+				6
+			)
+
+			print(target.name + "'s Speed fell!")
 
 func faint_enemy(index):
 	var enemy = enemy_units[index]

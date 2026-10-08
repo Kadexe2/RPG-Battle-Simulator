@@ -20,8 +20,11 @@ enum Effect {
 	DEFENSE_UP,
 	DEFENSE_DOWN,
 	SP_ATTACK_UP,
+	SP_ATTACK_DOWN,
 	SP_DEFENSE_UP,
-	SPEED_UP
+	SP_DEFENSE_DOWN,
+	SPEED_UP,
+	SPEED_DOWN
 }
 
 @export_category("Basic Information")

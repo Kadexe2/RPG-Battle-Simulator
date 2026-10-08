@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://5bqrdvxha6hv"]
+
+[ext_resource type="Script" uid="uid://cj3850coaas5y" path="res://Scripts/Classes/move_data.gd" id="1_7p13l"]
+
+[resource]
+script = ExtResource("1_7p13l")
+move_name = "String Shot"
+description = "The foe is bound with silk blown from the user's mouth. It reduces the target's Speed stat."
+type = 13
+category = 2
+power_points = 40
+effect_rate = 100
+effect = 10
+stat_boost_stages = 2
+metadata/_custom_type_script = "uid://cj3850coaas5y"

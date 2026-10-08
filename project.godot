@@ -26,6 +26,10 @@ PartyInfo="*uid://d1yghonrjvhcw"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[gui]
+
+timers/tooltip_delay_sec=0.21
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
