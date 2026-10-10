@@ -4,6 +4,7 @@ const BattleUnit = preload("res://Scripts/BattleScripts/battle_unit.gd")
 const Damage = preload("res://Scripts/BattleScripts/damage.gd")
 
 var damage = Damage.new()
+var battle_ended = false
 
 var party_units = []
 var enemy_units = []
@@ -11,6 +12,8 @@ var enemy_units = []
 signal damage_dealt
 signal enemy_fainted(index)
 signal battle_won
+signal party_unit_fainted(index: int)
+signal party_wiped
 
 func setup(party_info, enemy_species):
 	create_party_units(party_info)
@@ -220,5 +223,38 @@ func faint_enemy(index):
 	enemy_fainted.emit(index)
 
 	if enemy_units.is_empty():
+		battle_ended = true
 		battle_won.emit()
+		
+
+func test_party_damage() -> void:
+	if battle_ended:
+		return
+	
+	if party_units.is_empty():
+		return
+
+	var party_unit = party_units[0]
+
+	party_unit.current_hp -= 10
+
+	print("Party unit took 10 damage. HP: ", party_unit.current_hp)
+
+	if party_unit.current_hp <= 0:
+		party_unit.current_hp = 0
+		handle_party_unit_fainted(party_unit)
+		
+func handle_party_unit_fainted(party_unit: BattleUnit) -> void:
+	var index = party_units.find(party_unit)
+
+	if index == -1:
+		return
+
+	party_units.remove_at(index)
+	party_unit_fainted.emit(index)
+
+	if party_units.is_empty():
+		battle_ended = true
+		print("Your party was wiped!")
+		party_wiped.emit()
 		

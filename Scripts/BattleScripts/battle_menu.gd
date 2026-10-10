@@ -61,6 +61,7 @@ func _ready():
 
 	battle.setup(PartyInfo, EncounterInfo.enemy_species)
 
+	party_units = battle.party_units
 	enemy_units = battle.enemy_units
 
 	create_hp_displays(enemy_units, $EnemyHPContainer, enemy_hp_labels)
@@ -71,6 +72,8 @@ func _ready():
 	battle.damage_dealt.connect(_on_damage_dealt)
 	battle.enemy_fainted.connect(_on_enemy_fainted)
 	battle.battle_won.connect(_on_battle_won)
+	battle.party_unit_fainted.connect(_on_party_unit_fainted)
+	battle.party_wiped.connect(_on_party_wiped)
 
 func get_move_tooltip(move_tooltip: MoveData) -> String:
 	var text = move_tooltip.move_name + "\n\n"
@@ -185,13 +188,33 @@ func _on_target_cancel_pressed():
 func _on_damage_dealt():
 	update_hp_display()
 	
+func remove_fainted_party_label(index: int) -> void:
+	if index < 0 or index >= party_hp_labels.size():
+		return
+
+	var hp_label = party_hp_labels[index]
+	party_hp_labels.remove_at(index)
+	hp_label.queue_free()	
+
 func _on_enemy_fainted(index):
 	var hp_label = enemy_hp_labels[index]
 	hp_label.queue_free()
 	enemy_hp_labels.remove_at(index)
 
 	update_hp_display()
-	
+
+func _on_party_unit_fainted(index: int) -> void:
+	remove_fainted_party_label(index)
+	update_hp_display()
+
+func _on_party_wiped() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Overworld.tscn")
+
 func _on_battle_won():
 	print("All enemies were defeated!")
 	get_tree().change_scene_to_file("res://Scenes/Overworld.tscn")
+	
+func _input(event):
+	if event.is_action_pressed("test_damage"):
+		battle.test_party_damage()
+		update_hp_display()
