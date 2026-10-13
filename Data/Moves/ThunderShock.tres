@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://dmchxsxxcv7ev"]
+
+[ext_resource type="Script" uid="uid://cj3850coaas5y" path="res://Scripts/Classes/move_data.gd" id="1_gcgvy"]
+
+[resource]
+script = ExtResource("1_gcgvy")
+move_name = "Thunder Shock"
+description = "A jolt of electricity is hurled at the target to inflict damage. It may also leave the target with paralysis."
+type = 5
+category = 1
+power_points = 30
+power = 40
+metadata/_custom_type_script = "uid://cj3850coaas5y"

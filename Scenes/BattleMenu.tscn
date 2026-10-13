@@ -65,6 +65,7 @@ offset_left = 87.0
 offset_top = 4.0
 offset_right = 373.0
 offset_bottom = 70.0
+mouse_filter = 2
 theme_override_constants/separation = 50
 alignment = 1
 
@@ -74,6 +75,7 @@ offset_left = 87.0
 offset_top = 105.0
 offset_right = 374.0
 offset_bottom = 169.0
+mouse_filter = 2
 theme_override_constants/separation = 50
 alignment = 1
 

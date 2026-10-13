@@ -1,6 +1,6 @@
 extends Node
 
-var party = [10001]
+var party = [10001, 10002]
 
 var characters = {
 	10001: {
@@ -10,8 +10,19 @@ var characters = {
 		"moves": [
 			preload("res://Data/Moves/Scratch.tres"),
 			preload("res://Data/Moves/Growl.tres"),
-			preload("res://Data/Moves/Ember.tres"),
+			preload("res://Data/Moves/Howl.tres"),
 			preload("res://Data/Moves/FirePunch.tres")
+		]
+	},
+	10002: {
+		"id": 10002,
+		"nickname": "Sparky",
+		"species": preload("res://Data/Species/Pikachu.tres"),
+		"moves": [
+			preload("res://Data/Moves/Tackle.tres"),
+			preload("res://Data/Moves/Scratch.tres"),
+			preload("res://Data/Moves/ThunderShock.tres"),
+			null,
 		]
 	}
 }

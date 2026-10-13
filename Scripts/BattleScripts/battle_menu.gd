@@ -17,6 +17,7 @@ var enemy_units = []
 var party_hp_labels = []
 var enemy_hp_labels = []
 
+var active_party_index = 0
 var selected_move_index = -1
 
 #DISPLAY UNITS ON SCREEN
@@ -43,16 +44,23 @@ func update_move_buttons():
 		$FightMenu/Move4Button
 	]
 	
-	var moves = battle.party_units[0].move_slots
+	if active_party_index >= battle.party_units.size():
+		return
+
+	var active_unit = battle.party_units[active_party_index]
+	var moves = active_unit.move_slots
 
 	for i in range(move_buttons.size()):
 		var move = moves[i]
 		
 		if move == null:
 			move_buttons[i].text = "-"
+			move_buttons[i].tooltip_text = ""
+			move_buttons[i].disabled = true
 		else:
 			move_buttons[i].text = move.move_name
 			move_buttons[i].tooltip_text = get_move_tooltip(move)
+			move_buttons[i].disabled = false
 	
 
 func _ready():
@@ -95,16 +103,14 @@ func get_move_tooltip(move_tooltip: MoveData) -> String:
 #FIGHT MENU, CHOOSE YOUR MOVE
 
 func _on_fight_button_pressed():
-	main_menu.hide()
+	active_party_index = 0
+	update_move_buttons()
 	fight_menu.show()
+	main_menu.hide()
 
 func _on_back_button_pressed():
 	fight_menu.hide()
 	main_menu.show()
-	
-func _on_run_button_pressed():
-	get_tree().change_scene_to_file("res://Scenes/Overworld.tscn")
-	print("You got away safely.")
 		
 func _on_move_1_button_pressed():
 	show_target_menu(0)
@@ -121,37 +127,32 @@ func _on_move_4_button_pressed():
 #TARGETING MENU, CHOOSE A TARGET AFTER MOVE WAS SELECTED
 		
 func show_target_menu(move_index):
-	var move = battle.party_units[0].move_slots[move_index]
+	if active_party_index >= battle.party_units.size():
+		return
+
+	var attacker = battle.party_units[active_party_index]
+	var move = attacker.move_slots[move_index]
 
 	if move == null:
 		return
 
 	selected_move_index = move_index
 
-	var attacker = battle.party_units[0]
-
 	match move.target:
 		MoveData.Target.SELF:
 			fight_menu.hide()
-
 			battle.use_move(attacker, move, attacker)
-
-			selected_move_index = -1
-			main_menu.show()
+			finish_party_turn()
 
 		MoveData.Target.ENEMY:
 			fight_menu.hide()
 			$TargetMenu.show()
-
 			create_target_buttons()
 
 		MoveData.Target.ALL_ENEMIES:
 			fight_menu.hide()
-
 			battle.use_move_on_all_enemies(attacker, move)
-
-			selected_move_index = -1
-			main_menu.show()
+			finish_party_turn()
 	
 func create_target_buttons():
 	for child in $TargetMenu.get_children():
@@ -171,20 +172,47 @@ func create_target_buttons():
 func _on_target_button_pressed(target_index):
 	$TargetMenu.hide()
 
-	var attacker = battle.party_units[0]
+	if active_party_index >= battle.party_units.size():
+		return
+
+	if target_index >= enemy_units.size():
+		return
+
+	var attacker = battle.party_units[active_party_index]
 	var move = attacker.move_slots[selected_move_index]
 	var target = enemy_units[target_index]
 
 	battle.use_move(attacker, move, target)
 
-	selected_move_index = -1
-	main_menu.show()
+	finish_party_turn()
 
 func _on_target_cancel_pressed():
 	$TargetMenu.hide()
 	fight_menu.show()
 	selected_move_index = -1
-	
+
+func finish_party_turn():
+	selected_move_index = -1
+
+	if battle.battle_ended:
+		return
+
+	# If the move ended the battle, don't advance the turn.
+	if enemy_units.is_empty():
+		main_menu.show()
+		return
+
+	active_party_index += 1
+
+	if active_party_index >= battle.party_units.size():
+		active_party_index = 0
+		main_menu.show()
+		return
+
+	main_menu.hide()
+	fight_menu.show()
+	update_move_buttons()
+
 func _on_damage_dealt():
 	update_hp_display()
 	
@@ -207,13 +235,19 @@ func _on_party_unit_fainted(index: int) -> void:
 	remove_fainted_party_label(index)
 	update_hp_display()
 
+#Ending battle
+
 func _on_party_wiped() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Overworld.tscn")
 
 func _on_battle_won():
 	print("All enemies were defeated!")
 	get_tree().change_scene_to_file("res://Scenes/Overworld.tscn")
-	
+
+func _on_run_button_pressed():
+	get_tree().change_scene_to_file("res://Scenes/Overworld.tscn")
+	print("You got away safely.")
+
 func _input(event):
 	if event.is_action_pressed("test_damage"):
 		battle.test_party_damage()

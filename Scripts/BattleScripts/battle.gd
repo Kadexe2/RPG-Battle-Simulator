@@ -238,10 +238,11 @@ func test_party_damage() -> void:
 
 	party_unit.current_hp -= 10
 
-	print("Party unit took 10 damage. HP: ", party_unit.current_hp)
+	print(party_unit.name + " took 10 damage. HP: ", party_unit.current_hp)
 
 	if party_unit.current_hp <= 0:
 		party_unit.current_hp = 0
+		print(party_unit.name + " fainted.")
 		handle_party_unit_fainted(party_unit)
 		
 func handle_party_unit_fainted(party_unit: BattleUnit) -> void:

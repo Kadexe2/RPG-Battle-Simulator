@@ -62,5 +62,26 @@ var effectiveness = {
 		ElementalType.Type.DRAGON: 0.5,
 		ElementalType.Type.GHOST: 1.0,
 		ElementalType.Type.FAIRY: 1.0
-	}
+	},
+	
+	ElementalType.Type.ELECTRIC: {
+		ElementalType.Type.NORMAL: 1.0,
+		ElementalType.Type.FIRE: 1.0,
+		ElementalType.Type.WATER: 2.0,
+		ElementalType.Type.GRASS: 0.5,
+		ElementalType.Type.ELECTRIC: 0.5,
+		ElementalType.Type.ROCK: 1.0,
+		ElementalType.Type.FLYING: 2.0,
+		ElementalType.Type.FIGHTING: 1.0,
+		ElementalType.Type.DARK: 1.0,
+		ElementalType.Type.PSYCHIC: 1.0,
+		ElementalType.Type.STEEL: 1.0,
+		ElementalType.Type.GROUND: 0.0,
+		ElementalType.Type.BUG: 1.0,
+		ElementalType.Type.POISON: 1.0,
+		ElementalType.Type.ICE: 1.0,
+		ElementalType.Type.DRAGON: 0.5,
+		ElementalType.Type.GHOST: 1.0,
+		ElementalType.Type.FAIRY: 1.0
+	},
 }
