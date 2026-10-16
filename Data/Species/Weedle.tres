@@ -1,9 +1,13 @@
 [gd_resource type="Resource" script_class="SpeciesData" format=3 uid="uid://c3u4tdivx7xam"]
 
 [ext_resource type="Script" uid="uid://bslao6r3fvv05" path="res://Scripts/Classes/species_data.gd" id="1_736rj"]
+[ext_resource type="Script" uid="uid://cj3850coaas5y" path="res://Scripts/Classes/move_data.gd" id="1_t1ys2"]
+[ext_resource type="Resource" uid="uid://hvyeuhs16xlm" path="res://Data/Moves/PoisonSting.tres" id="2_j8l63"]
+[ext_resource type="Resource" uid="uid://5bqrdvxha6hv" path="res://Data/Moves/StringShot.tres" id="3_pu8ny"]
 
 [resource]
 script = ExtResource("1_736rj")
+species_name = "Weedle"
 base_hp = 40
 base_attack = 35
 base_defense = 30
@@ -12,4 +16,5 @@ base_sp_defense = 20
 base_speed = 50
 type_1 = 13
 type_2 = 14
+learnset = Array[ExtResource("1_t1ys2")]([ExtResource("2_j8l63"), ExtResource("3_pu8ny")])
 metadata/_custom_type_script = "uid://bslao6r3fvv05"

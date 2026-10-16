@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://cldedfftwxumr"]
+
+[ext_resource type="Script" uid="uid://cj3850coaas5y" path="res://Scripts/Classes/move_data.gd" id="1_pbmgi"]
+
+[resource]
+script = ExtResource("1_pbmgi")
+move_name = "Tail Whip"
+description = "The user wags its tail cutely, making opposing Pokémon less wary. This lowers their Defense stats."
+category = 2
+target = 2
+power_points = 30
+effect_rate = 100
+effect = 4
+metadata/_custom_type_script = "uid://cj3850coaas5y"

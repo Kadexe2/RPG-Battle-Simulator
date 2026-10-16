@@ -1,9 +1,12 @@
 [gd_resource type="Resource" script_class="SpeciesData" format=3 uid="uid://d4mvflrwc8c6"]
 
+[ext_resource type="Script" uid="uid://cj3850coaas5y" path="res://Scripts/Classes/move_data.gd" id="1_0l8mi"]
 [ext_resource type="Script" uid="uid://bslao6r3fvv05" path="res://Scripts/Classes/species_data.gd" id="1_q35u8"]
+[ext_resource type="Resource" uid="uid://et681ki4w5tq" path="res://Data/Moves/Harden.tres" id="2_fstr8"]
 
 [resource]
 script = ExtResource("1_q35u8")
+species_name = "Kakuna"
 base_hp = 45
 base_attack = 25
 base_defense = 50
@@ -12,4 +15,5 @@ base_sp_defense = 25
 base_speed = 35
 type_1 = 13
 type_2 = 14
+learnset = Array[ExtResource("1_0l8mi")]([ExtResource("2_fstr8")])
 metadata/_custom_type_script = "uid://bslao6r3fvv05"

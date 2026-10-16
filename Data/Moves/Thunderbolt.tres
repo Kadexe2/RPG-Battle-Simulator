@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://dj075q23ol2om"]
+
+[ext_resource type="Script" uid="uid://cj3850coaas5y" path="res://Scripts/Classes/move_data.gd" id="1_cufku"]
+
+[resource]
+script = ExtResource("1_cufku")
+move_name = "Thunderbolt"
+description = "The user attacks the target with a strong electric blast. This may also leave the target with paralysis."
+type = 5
+category = 1
+power_points = 15
+power = 95
+metadata/_custom_type_script = "uid://cj3850coaas5y"

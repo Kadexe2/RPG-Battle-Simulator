@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://bhbq5qlgpuv3p"]
+
+[ext_resource type="Script" uid="uid://cj3850coaas5y" path="res://Scripts/Classes/move_data.gd" id="1_y77og"]
+
+[resource]
+script = ExtResource("1_y77og")
+move_name = "Slam"
+description = "The target is slammed with a long tail, vines, or the like to inflict damage."
+accuracy = 75
+power_points = 20
+power = 80
+physical_contact = true
+metadata/_custom_type_script = "uid://cj3850coaas5y"

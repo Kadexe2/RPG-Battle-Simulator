@@ -1,9 +1,17 @@
 [gd_resource type="Resource" script_class="SpeciesData" format=3 uid="uid://mpyqhubicsa7"]
 
+[ext_resource type="Script" uid="uid://cj3850coaas5y" path="res://Scripts/Classes/move_data.gd" id="1_2rrlo"]
 [ext_resource type="Script" uid="uid://bslao6r3fvv05" path="res://Scripts/Classes/species_data.gd" id="1_eqgs6"]
+[ext_resource type="Resource" uid="uid://dmchxsxxcv7ev" path="res://Data/Moves/ThunderShock.tres" id="2_bwp6q"]
+[ext_resource type="Resource" uid="uid://ckuve3ghhdtin" path="res://Data/Moves/Growl.tres" id="3_t7u6r"]
+[ext_resource type="Resource" uid="uid://cldedfftwxumr" path="res://Data/Moves/TailWhip.tres" id="4_0ph16"]
+[ext_resource type="Resource" uid="uid://qpsx8uetpcen" path="res://Data/Moves/QuickAttack.tres" id="5_qpb83"]
+[ext_resource type="Resource" uid="uid://bhbq5qlgpuv3p" path="res://Data/Moves/Slam.tres" id="6_s8afe"]
+[ext_resource type="Resource" uid="uid://dj075q23ol2om" path="res://Data/Moves/Thunderbolt.tres" id="7_ka220"]
 
 [resource]
 script = ExtResource("1_eqgs6")
+species_name = "Pikachu"
 base_hp = 35
 base_attack = 55
 base_defense = 40
@@ -11,4 +19,5 @@ base_sp_attack = 50
 base_sp_defense = 50
 base_speed = 90
 type_1 = 5
+learnset = Array[ExtResource("1_2rrlo")]([ExtResource("2_bwp6q"), ExtResource("3_t7u6r"), ExtResource("4_0ph16"), ExtResource("5_qpb83"), ExtResource("6_s8afe"), ExtResource("7_ka220")])
 metadata/_custom_type_script = "uid://bslao6r3fvv05"

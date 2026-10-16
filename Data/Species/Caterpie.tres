@@ -1,9 +1,13 @@
 [gd_resource type="Resource" script_class="SpeciesData" format=3 uid="uid://dyu1dqw7lubii"]
 
 [ext_resource type="Script" uid="uid://bslao6r3fvv05" path="res://Scripts/Classes/species_data.gd" id="1_0nxd4"]
+[ext_resource type="Script" uid="uid://cj3850coaas5y" path="res://Scripts/Classes/move_data.gd" id="1_vfu52"]
+[ext_resource type="Resource" uid="uid://beajronvkv8l3" path="res://Data/Moves/Tackle.tres" id="2_11bwo"]
+[ext_resource type="Resource" uid="uid://5bqrdvxha6hv" path="res://Data/Moves/StringShot.tres" id="3_7m3vb"]
 
 [resource]
 script = ExtResource("1_0nxd4")
+species_name = "Caterpie"
 base_hp = 45
 base_attack = 30
 base_defense = 35
@@ -11,4 +15,5 @@ base_sp_attack = 20
 base_sp_defense = 20
 base_speed = 45
 type_1 = 13
+learnset = Array[ExtResource("1_vfu52")]([ExtResource("2_11bwo"), ExtResource("3_7m3vb")])
 metadata/_custom_type_script = "uid://bslao6r3fvv05"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://et681ki4w5tq"]
+
+[ext_resource type="Script" uid="uid://cj3850coaas5y" path="res://Scripts/Classes/move_data.gd" id="1_16bmk"]
+
+[resource]
+script = ExtResource("1_16bmk")
+move_name = "Harden"
+description = "The user stiffens all the muscles in its body to boost its Defense stat."
+category = 2
+target = 1
+power_points = 30
+effect_rate = 100
+effect = 3
+stat_boost_stages = 1
+metadata/_custom_type_script = "uid://cj3850coaas5y"

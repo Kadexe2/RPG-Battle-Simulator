@@ -63,6 +63,9 @@ func create_enemy_units(enemy_species):
 		enemy_unit.defense = species_data.base_defense
 		enemy_unit.sp_attack = species_data.base_sp_attack
 		enemy_unit.sp_defense = species_data.base_sp_defense
+		
+		for move_index in range(mini(4, species_data.learnset.size())):
+			enemy_unit.move_slots[move_index] = species_data.learnset[move_index]
 
 		enemy_units.append(enemy_unit)
 	
@@ -111,17 +114,6 @@ func print_enemy_attack_message():
 
 		print(message + " attacked!")
 
-func use_move(attacker: BattleUnit, move: MoveData, target: BattleUnit):
-	print(attacker.name + " used " + move.move_name + "!")
-
-	apply_move_to_target(attacker, move, target)
-
-	if target != null and target.current_hp == 0:
-		var target_index = enemy_units.find(target)
-
-		if target_index != -1:
-			faint_enemy(target_index)
-
 func apply_move_to_target(
 	attacker: BattleUnit,
 	move: MoveData,
@@ -151,11 +143,42 @@ func apply_move_to_target(
 		MoveData.Category.STATUS:
 			apply_move_effect(move, target)
 
-func use_move_on_all_enemies(attacker: BattleUnit, move: MoveData):
+
+func use_move(attacker: BattleUnit, move: MoveData, target: BattleUnit = null) -> void:
 	print(attacker.name + " used " + move.move_name + "!")
 
-	for enemy in enemy_units:
-		apply_move_to_target(attacker, move, enemy)
+	if move.target == MoveData.Target.SELF:
+		apply_move_to_target(attacker, move, attacker)
+	elif move.target == MoveData.Target.ALL_ENEMIES:
+		var opponents = get_opponents(attacker)
+
+		# Use a copy because defeated units may be removed during the loop.
+		for opponent in opponents.duplicate():
+			if opponents.has(opponent):
+				apply_move_to_target(attacker, move, opponent)
+				handle_faint(opponent)
+	else:
+		if target == null:
+			return
+
+		apply_move_to_target(attacker, move, target)
+		handle_faint(target)
+
+
+func use_move_on_all_enemies(attacker: BattleUnit, move: MoveData) -> void:
+	use_move(attacker, move)
+
+
+func use_enemy_move(attacker: BattleUnit, move: MoveData, target: BattleUnit = null) -> void:
+	use_move(attacker, move, target)
+
+
+func get_opponents(attacker: BattleUnit) -> Array:
+	if party_units.has(attacker):
+		return enemy_units
+	else:
+		return party_units
+
 		
 func apply_move_effect(move: MoveData, target: BattleUnit):
 	match move.effect:
@@ -212,44 +235,96 @@ func apply_move_effect(move: MoveData, target: BattleUnit):
 			)
 
 			print(target.name + "'s Speed fell!")
-
-func faint_enemy(index):
-	var enemy = enemy_units[index]
-
-	print(enemy.name + " fainted!")
-
-	enemy_units.remove_at(index)
-
-	enemy_fainted.emit(index)
-
-	if enemy_units.is_empty():
-		battle_ended = true
-		battle_won.emit()
 		
 
+
 func test_party_damage() -> void:
-	if battle_ended:
-		return
-	
-	if party_units.is_empty():
+	if battle_ended or party_units.is_empty():
 		return
 
 	var party_unit = party_units[0]
-
 	party_unit.current_hp -= 10
 
 	print(party_unit.name + " took 10 damage. HP: ", party_unit.current_hp)
 
 	if party_unit.current_hp <= 0:
-		party_unit.current_hp = 0
-		print(party_unit.name + " fainted.")
-		handle_party_unit_fainted(party_unit)
+		handle_faint(party_unit)
 		
-func handle_party_unit_fainted(party_unit: BattleUnit) -> void:
-	var index = party_units.find(party_unit)
 
+func test_enemy_action() -> void:
+	var living_enemies: Array[BattleUnit] = []
+	var living_party: Array[BattleUnit] = []
+
+	for unit in enemy_units:
+		if unit.current_hp > 0:
+			living_enemies.append(unit)
+
+	for unit in party_units:
+		if unit.current_hp > 0:
+			living_party.append(unit)
+
+	if living_enemies.is_empty() or living_party.is_empty():
+		return
+
+	# Use the first living enemy for now.
+	var attacker: BattleUnit = living_enemies[0]
+
+	var usable_moves: Array[MoveData] = []
+	for move in attacker.move_slots:
+		if move != null:
+			usable_moves.append(move)
+
+	if usable_moves.is_empty():
+		print(attacker.name + " has no usable moves!")
+		return
+
+	var move: MoveData = usable_moves.pick_random()
+	var target: BattleUnit = null
+
+	match move.target:
+		MoveData.Target.SELF:
+			target = attacker
+		MoveData.Target.ENEMY:
+			target = living_party.pick_random()
+		MoveData.Target.ALL_ENEMIES:
+			pass
+
+	use_enemy_move(attacker, move, target)
+	
+
+func handle_faint(target: BattleUnit) -> void:
+	if target == null or target.current_hp > 0:
+		return
+
+	target.current_hp = 0
+
+	if enemy_units.has(target):
+		faint_enemy(target)
+	elif party_units.has(target):
+		handle_party_unit_fainted(target)
+
+
+func faint_enemy(enemy: BattleUnit) -> void:
+	var index = enemy_units.find(enemy)
 	if index == -1:
 		return
+
+	print(enemy.name + " fainted!")
+
+	enemy_units.remove_at(index)
+	enemy_fainted.emit(index)
+
+	if enemy_units.is_empty():
+		battle_ended = true
+		battle_won.emit()
+
+
+func handle_party_unit_fainted(party_unit: BattleUnit) -> void:
+	var index = party_units.find(party_unit)
+	if index == -1:
+		return
+
+	print(party_unit.name + " fainted!")
 
 	party_units.remove_at(index)
 	party_unit_fainted.emit(index)
@@ -258,4 +333,3 @@ func handle_party_unit_fainted(party_unit: BattleUnit) -> void:
 		battle_ended = true
 		print("Your party was wiped!")
 		party_wiped.emit()
-		

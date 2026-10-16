@@ -1,9 +1,14 @@
 [gd_resource type="Resource" script_class="SpeciesData" format=3 uid="uid://ca47mw3e70oth"]
 
+[ext_resource type="Script" uid="uid://cj3850coaas5y" path="res://Scripts/Classes/move_data.gd" id="1_geo5y"]
 [ext_resource type="Script" uid="uid://bslao6r3fvv05" path="res://Scripts/Classes/species_data.gd" id="1_x174x"]
+[ext_resource type="Resource" uid="uid://cjo1svarw7ve5" path="res://Data/Moves/Scratch.tres" id="2_llqwc"]
+[ext_resource type="Resource" uid="uid://ckuve3ghhdtin" path="res://Data/Moves/Growl.tres" id="3_ebnl5"]
+[ext_resource type="Resource" uid="uid://ba0d8kos4fnmb" path="res://Data/Moves/Ember.tres" id="4_ddm2r"]
 
 [resource]
 script = ExtResource("1_x174x")
+species_name = "Charmander"
 base_hp = 39
 base_attack = 52
 base_defense = 43
@@ -11,4 +16,5 @@ base_sp_attack = 60
 base_sp_defense = 50
 base_speed = 65
 type_1 = 2
+learnset = Array[ExtResource("1_geo5y")]([ExtResource("2_llqwc"), ExtResource("3_ebnl5"), ExtResource("4_ddm2r")])
 metadata/_custom_type_script = "uid://bslao6r3fvv05"

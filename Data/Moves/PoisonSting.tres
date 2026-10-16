@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://hvyeuhs16xlm"]
+
+[ext_resource type="Script" uid="uid://cj3850coaas5y" path="res://Scripts/Classes/move_data.gd" id="1_ho3ii"]
+
+[resource]
+script = ExtResource("1_ho3ii")
+move_name = "Poison Sting"
+description = "The user stabs the target with a poisonous stinger. This may also poison the target."
+type = 14
+power_points = 35
+power = 15
+metadata/_custom_type_script = "uid://cj3850coaas5y"

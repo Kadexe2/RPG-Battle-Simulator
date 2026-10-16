@@ -12,9 +12,14 @@
 [ext_resource type="Resource" uid="uid://5bqrdvxha6hv" path="res://Data/Moves/StringShot.tres" id="8_2g612"]
 [ext_resource type="Resource" uid="uid://beajronvkv8l3" path="res://Data/Moves/Tackle.tres" id="9_tdfty"]
 [ext_resource type="Resource" uid="uid://dmchxsxxcv7ev" path="res://Data/Moves/ThunderShock.tres" id="10_x3pk1"]
+[ext_resource type="Resource" uid="uid://et681ki4w5tq" path="res://Data/Moves/Harden.tres" id="11_wkste"]
 [ext_resource type="Resource" uid="uid://ca47mw3e70oth" path="res://Data/Species/Charmander.tres" id="12_gi0mr"]
+[ext_resource type="Resource" uid="uid://dj075q23ol2om" path="res://Data/Moves/Thunderbolt.tres" id="12_wmchj"]
+[ext_resource type="Resource" uid="uid://cldedfftwxumr" path="res://Data/Moves/TailWhip.tres" id="13_2g612"]
 [ext_resource type="Resource" uid="uid://dyu1dqw7lubii" path="res://Data/Species/Caterpie.tres" id="13_l40wo"]
 [ext_resource type="Resource" uid="uid://bqfhnyn62y0k" path="res://Data/Species/Metapod.tres" id="14_6lmi0"]
+[ext_resource type="Resource" uid="uid://bhbq5qlgpuv3p" path="res://Data/Moves/Slam.tres" id="14_tdfty"]
+[ext_resource type="Resource" uid="uid://qpsx8uetpcen" path="res://Data/Moves/QuickAttack.tres" id="15_2g612"]
 [ext_resource type="Resource" uid="uid://c3u4tdivx7xam" path="res://Data/Species/Weedle.tres" id="15_hv1xt"]
 [ext_resource type="Resource" uid="uid://d4mvflrwc8c6" path="res://Data/Species/Kakuna.tres" id="16_3qiq1"]
 [ext_resource type="Resource" uid="uid://mpyqhubicsa7" path="res://Data/Species/Pikachu.tres" id="17_ly3n2"]
@@ -22,5 +27,5 @@
 [resource]
 script = ExtResource("2_jqnmc")
 species = Array[ExtResource("3_8siko")]([ExtResource("12_gi0mr"), ExtResource("13_l40wo"), ExtResource("14_6lmi0"), ExtResource("15_hv1xt"), ExtResource("16_3qiq1"), ExtResource("17_ly3n2")])
-moves = Array[ExtResource("1_qyjg7")]([ExtResource("4_wkste"), ExtResource("5_f4242"), ExtResource("6_hhtfg"), ExtResource("2_nliew"), ExtResource("3_x3pk1"), ExtResource("7_wmchj"), ExtResource("8_2g612"), ExtResource("9_tdfty"), ExtResource("10_x3pk1")])
+moves = Array[ExtResource("1_qyjg7")]([ExtResource("4_wkste"), ExtResource("5_f4242"), ExtResource("6_hhtfg"), ExtResource("2_nliew"), ExtResource("3_x3pk1"), ExtResource("7_wmchj"), ExtResource("8_2g612"), ExtResource("9_tdfty"), ExtResource("10_x3pk1"), ExtResource("11_wkste"), ExtResource("12_wmchj"), ExtResource("13_2g612"), ExtResource("14_tdfty"), ExtResource("15_2g612")])
 metadata/_custom_type_script = "uid://d223jqopn80ty"

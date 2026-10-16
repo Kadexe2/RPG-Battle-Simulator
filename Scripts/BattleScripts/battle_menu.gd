@@ -250,5 +250,5 @@ func _on_run_button_pressed():
 
 func _input(event):
 	if event.is_action_pressed("test_damage"):
-		battle.test_party_damage()
+		battle.test_enemy_action()
 		update_hp_display()
